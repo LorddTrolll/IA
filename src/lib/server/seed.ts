@@ -25,7 +25,7 @@ export function createDemoState(): ClinicState {
     {
       id: 'admin-demo',
       name: 'Dra. Helena Costa',
-      email: 'helena@lumina.exemplo',
+      email: 'helena@dentim.exemplo',
       role: 'admin',
       status: 'active',
       finance: true,
@@ -34,7 +34,7 @@ export function createDemoState(): ClinicState {
     {
       id: 'dentist-1',
       name: 'Dr. Lucas Almeida',
-      email: 'lucas@lumina.exemplo',
+      email: 'lucas@dentim.exemplo',
       role: 'dentist',
       status: 'active',
       finance: true,
@@ -43,7 +43,7 @@ export function createDemoState(): ClinicState {
     {
       id: 'dentist-2',
       name: 'Dra. Beatriz Lima',
-      email: 'beatriz@lumina.exemplo',
+      email: 'beatriz@dentim.exemplo',
       role: 'dentist',
       status: 'pending',
       finance: false,
@@ -52,7 +52,7 @@ export function createDemoState(): ClinicState {
     {
       id: 'reception-1',
       name: 'Marina Santos',
-      email: 'marina@lumina.exemplo',
+      email: 'marina@dentim.exemplo',
       role: 'reception',
       status: 'active',
       finance: true,
@@ -319,4 +319,27 @@ export function createDemoState(): ClinicState {
     },
   ];
   return state;
+}
+
+/** Migrate only the known fictitious seed identities; preserve user-entered addresses. */
+export const DEMO_SEED_EMAILS: Record<string, string> = {
+  'admin-demo': 'helena@dentim.exemplo',
+  'dentist-1': 'lucas@dentim.exemplo',
+  'dentist-2': 'beatriz@dentim.exemplo',
+  'reception-1': 'marina@dentim.exemplo',
+};
+export function migrateDemoSeedEmails(state: ClinicState): boolean {
+  let changed = false;
+  for (const member of state.members) {
+    const current = DEMO_SEED_EMAILS[member.id];
+    if (
+      current &&
+      member.email.toLowerCase() ===
+        current.replace('@dentim.exemplo', '@lumina.exemplo')
+    ) {
+      member.email = current;
+      changed = true;
+    }
+  }
+  return changed;
 }

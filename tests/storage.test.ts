@@ -10,7 +10,7 @@ import {
 } from '../src/lib/server/storage';
 import { applyAction } from '../src/lib/server/domain';
 test('SQLite persists records and rejects stale revisions without losing committed data', async () => {
-  const directory = mkdtempSync(join(tmpdir(), 'lumina-storage-test-'));
+  const directory = mkdtempSync(join(tmpdir(), 'dentim-storage-test-'));
   const previous = {
     mode: process.env.DEMO_MODE,
     dir: process.env.DEMO_DATA_DIR,

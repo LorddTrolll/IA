@@ -1,6 +1,6 @@
 'use client';
 import { Tooth } from './tooth-icon';
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { ArrowRight, ArrowUpRight, LockKeyhole, Sparkles } from 'lucide-react';
 import { Field, Submit } from './ui';
 export default function AuthScreen({
@@ -15,7 +15,18 @@ export default function AuthScreen({
   const [signup, setSignup] = useState(false),
     [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
-    [success, setSuccess] = useState('');
+    [success, setSuccess] = useState(''),
+    [demo, setDemo] = useState(false),
+    [email, setEmail] = useState(''),
+    [password, setPassword] = useState('');
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch('/api/auth', { cache: 'no-store', signal: controller.signal })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => setDemo(data?.mode === 'demo'))
+      .catch(() => {});
+    return () => controller.abort();
+  }, []);
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setBusy(true);
@@ -50,7 +61,7 @@ export default function AuthScreen({
       <section className="auth-brand">
         <div className="auth-wordmark">
           <Tooth size={34} />
-          Lúmina<span>CLÍNICA CONECTADA</span>
+          Dentim<span>CLÍNICA CONECTADA</span>
         </div>
         <div>
           <span className="eyebrow lime">MAIS ESPAÇO PARA O QUE IMPORTA</span>
@@ -73,20 +84,20 @@ export default function AuthScreen({
       </section>
       <section className="auth-form">
         <div>
-          <span className="eyebrow">BEM-VINDO À LÚMINA</span>
+          <span className="eyebrow">BEM-VINDO AO DENTIM</span>
           <h2>
             {setup
               ? 'Vamos conectar sua clínica.'
               : signup
                 ? 'Comece uma nova história.'
-                : 'Bom ter você por aqui.'}
+                : 'Seu cuidado começa aqui.'}
           </h2>
           <p>
             {setup
               ? 'O código está pronto para receber a configuração dos serviços.'
               : signup
                 ? 'Crie sua conta. O acesso será liberado pelo administrador.'
-                : 'Entre para acompanhar os cuidados de hoje.'}
+                : 'Entre com sua conta individual para acompanhar os cuidados de hoje.'}
           </p>
           {setup ? (
             <div className="setup-instructions">
@@ -133,6 +144,8 @@ export default function AuthScreen({
                   placeholder="voce@clinica.com.br"
                   required
                   autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Field>
               <Field label="Senha">
@@ -144,6 +157,8 @@ export default function AuthScreen({
                   placeholder="Mínimo de 8 caracteres"
                   required
                   autoComplete={signup ? 'new-password' : 'current-password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Field>
               {error && (
@@ -175,6 +190,41 @@ export default function AuthScreen({
                 <ArrowUpRight size={14} />
               </button>
             </form>
+          )}
+          {!setup && !signup && demo && (
+            <section className="auth-demo" aria-label="Acessos de demonstração">
+              <span className="eyebrow">EXPERIMENTE COM CONTAS FICTÍCIAS</span>
+              <p>
+                Selecione um perfil para preencher o acesso. Cada profissional
+                tem sua própria sessão e seus pacientes autorizados.
+              </p>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEmail('helena@dentim.exemplo');
+                    setPassword('Dentim123!');
+                    setError('');
+                  }}
+                >
+                  Dra. Helena <span>Administradora</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEmail('lucas@dentim.exemplo');
+                    setPassword('Dentim123!');
+                    setError('');
+                  }}
+                >
+                  Dr. Lucas <span>Dentista</span>
+                </button>
+              </div>
+              <small>
+                Senha de demonstração: <code>Dentim123!</code> · somente dados
+                fictícios
+              </small>
+            </section>
           )}
           <p className="auth-footnote">
             <LockKeyhole size={12} /> Acesso individual · autorizado pela sua

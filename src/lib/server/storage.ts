@@ -1,10 +1,10 @@
 import { mkdirSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import type { DatabaseSync } from 'node:sqlite';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { ClinicState, Member } from '../types';
 import { AppError } from './domain';
-import { createDemoState, emptyState } from './seed';
+import { createDemoState, emptyState, migrateDemoSeedEmails } from './seed';
 
 export function demoMode(): boolean {
   if (process.env.DEMO_MODE === 'true') return true;
@@ -52,29 +52,58 @@ export function adminClient(): SupabaseClient {
     },
   );
 }
-let sqlite: DatabaseSync | undefined;
-async function localDatabase() {
-  if (sqlite) return sqlite;
+const demoDatabases = new Map<string, Promise<DatabaseSync>>();
+async function openDemoDatabase(folder: string): Promise<DatabaseSync> {
   const { DatabaseSync } = await import('node:sqlite');
-  const folder = process.env.DEMO_DATA_DIR || join(process.cwd(), '.data');
   mkdirSync(folder, { recursive: true });
-  sqlite = new DatabaseSync(join(folder, 'clinic.sqlite'));
-  sqlite.exec(
+  const db = new DatabaseSync(join(folder, 'clinic.sqlite'));
+  db.exec(
     'PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000; CREATE TABLE IF NOT EXISTS clinic_state (id TEXT PRIMARY KEY, revision INTEGER NOT NULL DEFAULT 0, data TEXT NOT NULL)',
   );
-  const found = sqlite
-    .prepare('SELECT id FROM clinic_state WHERE id=?')
-    .get('main');
-  if (!found)
-    sqlite
-      .prepare('INSERT INTO clinic_state (id,revision,data) VALUES (?,0,?)')
-      .run('main', JSON.stringify(createDemoState()));
-  return sqlite;
+  db.exec('BEGIN IMMEDIATE');
+  try {
+    const row = db
+      .prepare('SELECT data, revision FROM clinic_state WHERE id=?')
+      .get('main') as { data: string; revision: number } | undefined;
+    if (!row) {
+      db.prepare(
+        'INSERT INTO clinic_state (id,revision,data) VALUES (?,0,?)',
+      ).run('main', JSON.stringify(createDemoState()));
+    } else {
+      const state = JSON.parse(row.data) as ClinicState;
+      if (migrateDemoSeedEmails(state)) {
+        db.prepare(
+          'UPDATE clinic_state SET data=?, revision=revision+1 WHERE id=?',
+        ).run(JSON.stringify(state), 'main');
+      }
+    }
+    db.exec('COMMIT');
+  } catch (error) {
+    db.exec('ROLLBACK');
+    db.close();
+    throw error;
+  }
+  return db;
+}
+/** Demo-only database; never initializes sample credentials or files in production. */
+export async function getDemoDatabase(): Promise<DatabaseSync> {
+  if (!demoMode())
+    throw new AppError(403, 'O armazenamento de demonstração está desativado.');
+  const folder = resolve(
+    process.env.DEMO_DATA_DIR || join(process.cwd(), '.data'),
+  );
+  let opening = demoDatabases.get(folder);
+  if (!opening) {
+    opening = openDemoDatabase(folder);
+    demoDatabases.set(folder, opening);
+    opening.catch(() => demoDatabases.delete(folder));
+  }
+  return opening;
 }
 export type Stored = { state: ClinicState; revision: number };
 export async function loadFullState(): Promise<Stored> {
   if (demoMode()) {
-    const db = await localDatabase();
+    const db = await getDemoDatabase();
     const row = db
       .prepare('SELECT data,revision FROM clinic_state WHERE id=?')
       .get('main') as { data: string; revision: number };
@@ -101,7 +130,7 @@ export async function saveFullState(
   revision: number,
 ): Promise<boolean> {
   if (demoMode()) {
-    const db = await localDatabase();
+    const db = await getDemoDatabase();
     const result = db
       .prepare(
         'UPDATE clinic_state SET data=?,revision=revision+1 WHERE id=? AND revision=?',

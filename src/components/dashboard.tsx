@@ -71,17 +71,15 @@ export default function Dashboard({
           <div className="live-label">
             <i /> OPERAÇÃO EM TEMPO REAL
           </div>
-          <h1>
-            Pulso da clínica<span>.</span>
-          </h1>
+          <h1>{session.user.name}</h1>
           <p className="page-subtitle">
-            Seu dia em equilíbrio. Cada cuidado, conectado.
+            Seus atendimentos, planejamentos e próximos cuidados.
           </p>
         </div>
         <div className="today-date">
           <CalendarDays size={17} />
           <div>
-            <span>HOJE NA LÚMINA</span>
+            <span>HOJE NO DENTIM</span>
             <strong>
               {new Intl.DateTimeFormat('pt-BR', {
                 weekday: 'long',

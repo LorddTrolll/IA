@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 export const metadata: Metadata = {
-  title: 'Lúmina · Clínica conectada',
+  title: 'Dentim · Clínica conectada',
   description:
     'Seu cuidado em primeiro plano. Gestão odontológica, prontuário e inteligência clínica em um só lugar.',
 };

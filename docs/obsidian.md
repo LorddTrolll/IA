@@ -1,6 +1,6 @@
-# Cérebro e Obsidian
+# Dentim · Cérebro e Obsidian
 
-O banco do Lúmina é a fonte oficial dos dados estruturados. O Cérebro consulta esse banco e as notas salvas na aplicação; a recuperação funciona sem API externa. O assistente usa somente os pacientes e campos autorizados para o usuário atual.
+O banco do Dentim é a fonte oficial dos dados estruturados. O Cérebro consulta esse banco e as notas salvas na aplicação; a recuperação funciona sem API externa. O assistente usa somente os pacientes e campos autorizados para o usuário conectado. Dentistas acessam apenas os pacientes vinculados ao seu perfil; trocar de profissional exige sair e entrar na conta correspondente. A exportação do vault segue as mesmas permissões da sessão.
 
 ## Exportação real
 

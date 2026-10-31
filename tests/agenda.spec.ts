@@ -1,5 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { localDate } from '../src/lib/types';
+import { loginDemoAdmin } from './demo-login';
+
+test.beforeEach(async ({ request, context }) => {
+  await loginDemoAdmin(request, context);
+});
 
 test('agenda cria e confirma um atendimento com persistência', async ({
   page,
@@ -31,7 +36,9 @@ test('agenda cria e confirma um atendimento com persistência', async ({
       `${String(8 + Math.floor(i / 2)).padStart(2, '0')}:${i % 2 ? '30' : '00'}`,
   ).find((t) => !taken.includes(t))!;
   await page.goto('/');
-  await page.getByRole('heading', { name: 'Pulso da clínica.' }).waitFor();
+  await page
+    .getByRole('heading', { name: 'Dra. Helena Costa', exact: true })
+    .waitFor();
   await page
     .getByRole('button', { name: 'Novo atendimento', exact: true })
     .click();

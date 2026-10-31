@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { Action, ClinicResponse, ClinicState, Member } from '../types';
 import { AppError, applyAction, ensureActive, visibleState } from './domain';
+import { getDemoAuth } from './demo-auth';
 import {
   adminClient,
   demoMode,
@@ -32,12 +33,11 @@ export function authToken(request: Request): string | undefined {
   const bearer = request.headers.get('authorization');
   return bearer?.startsWith('Bearer ')
     ? bearer.slice(7)
-    : cookie(request, 'lumina-access');
+    : cookie(request, 'dentim-access');
 }
 export async function authenticatedUser(request: Request): Promise<Member> {
   if (demoMode()) {
-    const { state } = await loadFullState();
-    return state.members.find((m) => m.id === 'admin-demo')!;
+    return (await getDemoAuth()).currentUser(authToken(request));
   }
   requireProductionConfig();
   const token = authToken(request);
@@ -213,7 +213,7 @@ export function responseError(error: unknown): Response {
     );
   }
   console.error(
-    'Lúmina request failed:',
+    'Dentim request failed:',
     error instanceof Error ? error.name : 'UnknownError',
   );
   return NextResponse.json(

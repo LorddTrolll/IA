@@ -108,7 +108,7 @@ export default function Assistant({
           </div>
           <div>
             <span className="eyebrow">UM SEGUNDO OLHAR</span>
-            <h2>Assistente Lúmina</h2>
+            <h2>Assistente Dentim</h2>
           </div>
           <button
             className="icon-button"

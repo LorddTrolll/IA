@@ -1,4 +1,10 @@
 import { test, expect } from '@playwright/test';
+import { loginDemoAdmin } from './demo-login';
+
+test.beforeEach(async ({ request, context }) => {
+  await loginDemoAdmin(request, context);
+});
+
 test('painel, busca, assistente e exportação funcionam', async ({
   page,
   request,
@@ -7,12 +13,12 @@ test('painel, busca, assistente e exportação funcionam', async ({
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/');
   await expect(
-    page.getByRole('heading', { name: 'Pulso da clínica.' }),
+    page.getByRole('heading', { name: 'Dra. Helena Costa', exact: true }),
   ).toBeVisible();
   await expect(
     page.getByText('AMBIENTE DE DEMONSTRAÇÃO', { exact: true }),
   ).toBeVisible();
-  await page.screenshot({ path: '/tmp/lumina-desktop.png', fullPage: true });
+  await page.screenshot({ path: '/tmp/dentim-desktop.png', fullPage: true });
   const clinic = await (await request.get('/api/clinic')).json();
   const patient = clinic.state.patients[0];
   await page.getByLabel('Buscar paciente ou prontuário').fill(patient.name);
@@ -20,7 +26,7 @@ test('painel, busca, assistente e exportação funcionam', async ({
   await expect(
     page.getByRole('heading', { name: patient.name, exact: true }),
   ).toBeVisible();
-  await page.getByLabel('Abrir assistente Lúmina').click();
+  await page.getByLabel('Abrir assistente Dentim').click();
   await page
     .getByLabel('Pergunta ao assistente')
     .fill('Quanto este paciente ainda deve?');
@@ -42,14 +48,14 @@ test('painel adapta-se ao celular sem rolagem horizontal', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await expect(
-    page.getByRole('heading', { name: 'Pulso da clínica.' }),
+    page.getByRole('heading', { name: 'Dra. Helena Costa', exact: true }),
   ).toBeVisible();
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth,
     ),
   ).toBeTruthy();
-  await page.screenshot({ path: '/tmp/lumina-mobile.png', fullPage: true });
+  await page.screenshot({ path: '/tmp/dentim-mobile.png', fullPage: true });
   await page.getByLabel('Abrir menu').click();
   await page
     .getByRole('navigation')

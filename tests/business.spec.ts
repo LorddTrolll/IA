@@ -1,5 +1,10 @@
 import { expect, test } from '@playwright/test';
 import type { ClinicResponse } from '../src/lib/types';
+import { loginDemoAdmin } from './demo-login';
+
+test.beforeEach(async ({ request, context }) => {
+  await loginDemoAdmin(request, context);
+});
 
 const unique = `Financeiro E2E ${Date.now()}`;
 
@@ -90,14 +95,14 @@ test('financeiro: cria cobrança, recebe parcela e registra despesa', async ({
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Exportar CSV', exact: true }).click();
   const download = await downloadPromise;
-  expect(download.suggestedFilename()).toMatch(/^lumina-recebimentos-.*\.csv$/);
+  expect(download.suggestedFilename()).toMatch(/^dentim-recebimentos-.*\.csv$/);
   const stream = await download.createReadStream();
   let csv = '';
   for await (const chunk of stream!) csv += chunk.toString('utf8');
   expect(csv).toContain(unique);
   expect(csv).toContain('375,50');
   expect(csv).toContain('225,50');
-  await page.screenshot({ path: '/tmp/lumina-finance.png', fullPage: true });
+  await page.screenshot({ path: '/tmp/dentim-finance.png', fullPage: true });
 
   await page.getByRole('button', { name: /^Despesas/ }).click();
   await page.getByRole('button', { name: 'Nova despesa', exact: true }).click();

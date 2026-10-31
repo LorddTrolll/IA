@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: lumina-clinica
+    name: dentim-clinica
     runtime: node
     plan: free
     buildCommand: npm ci --include=dev && npm run build

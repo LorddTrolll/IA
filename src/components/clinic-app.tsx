@@ -40,7 +40,7 @@ import { AnalyticsPage, FinancePage, TeamPage } from './business';
 import Assistant from './assistant';
 import AuthScreen from './auth';
 const nav = [
-  { id: 'pulso', name: 'Pulso', icon: Grid2X2 },
+  { id: 'pulso', name: 'Início', icon: Grid2X2 },
   { id: 'agenda', name: 'Agenda', icon: CalendarDays },
   { id: 'pacientes', name: 'Pessoas', icon: Users },
   { id: 'clinica', name: 'Clínica', icon: Tooth },
@@ -68,12 +68,29 @@ export default function ClinicApp() {
     [toast, setToast] = useState(''),
     [mobile, setMobile] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
+  const workspaceVersion = useRef(0);
+  const clearWorkspace = useCallback(() => {
+    workspaceVersion.current += 1;
+    setData(null);
+    setPage('pulso');
+    setPatientId(null);
+    setAssistant(null);
+    setModal(null);
+    setSearch('');
+    setSearchOpen(false);
+    setNotifications(false);
+    setMobile(false);
+    setToast('');
+  }, []);
   const refresh = useCallback(async () => {
+    const version = workspaceVersion.current;
     setStatus('loading');
     try {
       const r = await fetch('/api/clinic', { cache: 'no-store' });
       const json = await r.json();
+      if (version !== workspaceVersion.current) return;
       if (!r.ok) {
+        if (r.status === 401 || r.status === 403) clearWorkspace();
         setLoadError(json.error || 'Não foi possível conectar.');
         setStatus(
           json.code === 'SETUP_REQUIRED'
@@ -87,12 +104,13 @@ export default function ClinicApp() {
       setData(json);
       setStatus('ready');
     } catch {
+      if (version !== workspaceVersion.current) return;
       setStatus('error');
       setLoadError(
         'Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente.',
       );
     }
-  }, []);
+  }, [clearWorkspace]);
   useEffect(() => {
     void refresh();
   }, [refresh]);
@@ -118,14 +136,21 @@ export default function ClinicApp() {
     return () => clearTimeout(t);
   }, [toast]);
   async function action(type: string, payload: Record<string, unknown>) {
+    const version = workspaceVersion.current;
     const r = await fetch('/api/clinic', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ type, payload }),
     });
     const json = await r.json();
+    if (version !== workspaceVersion.current)
+      throw new Error('A sessão mudou. Entre novamente antes de salvar.');
     if (!r.ok) {
-      if (r.status === 401) setStatus('auth');
+      if (r.status === 401) {
+        clearWorkspace();
+        setLoadError('Sua sessão expirou. Entre novamente.');
+        setStatus('auth');
+      }
       throw new Error(json.error || 'Não foi possível salvar.');
     }
     setData(json);
@@ -155,11 +180,29 @@ export default function ClinicApp() {
     setScheduleDate(date || localDate());
     setModal('appointment');
   }
+  async function logout() {
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'logout' }),
+      });
+      if (!response.ok)
+        throw new Error(
+          'Não foi possível encerrar sua sessão. Tente novamente.',
+        );
+      clearWorkspace();
+      setLoadError('');
+      setStatus('auth');
+    } catch {
+      setToast('Não foi possível encerrar sua sessão. Tente novamente.');
+    }
+  }
   if (status === 'loading' && !data)
     return (
       <div className="app-loading">
         <Tooth size={43} strokeWidth={1.4} />
-        <strong>Lúmina</strong>
+        <strong>Dentim</strong>
         <span>
           Conectando cuidado e informação<span className="loading-dots">…</span>
         </span>
@@ -170,7 +213,11 @@ export default function ClinicApp() {
       <AuthScreen
         setup={status === 'setup'}
         errorMessage={loadError}
-        onSuccess={() => void refresh()}
+        onSuccess={() => {
+          clearWorkspace();
+          setLoadError('');
+          void refresh();
+        }}
       />
     );
   if (!data)
@@ -236,11 +283,11 @@ export default function ClinicApp() {
         <button
           className="brand"
           onClick={() => navigate('pulso')}
-          aria-label="Lúmina início"
+          aria-label="Dentim início"
         >
           <Tooth size={30} strokeWidth={1.45} />
           <strong>
-            Lúmina<span>CLÍNICA CONECTADA</span>
+            Dentim<span>CLÍNICA CONECTADA</span>
           </strong>
         </button>
         <nav aria-label="Navegação principal">
@@ -279,6 +326,14 @@ export default function ClinicApp() {
             <CircleHelp size={20} strokeWidth={1.5} />
           </button>
           <button
+            className="nav-icon"
+            onClick={() => void logout()}
+            aria-label="Sair da conta"
+            title="Sair da conta"
+          >
+            <LogOut size={18} strokeWidth={1.5} />
+          </button>
+          <button
             className={`nav-icon ${page === 'configuracoes' ? 'selected' : ''}`}
             onClick={() => navigate('configuracoes')}
             aria-label="Configurações"
@@ -309,7 +364,7 @@ export default function ClinicApp() {
           <div className="clinic-location">
             <span className="eyebrow">CENTRO CLÍNICO</span>
             <strong>
-              Lúmina Odontologia <ChevronDown size={12} />
+              Dentim Odontologia <ChevronDown size={12} />
             </strong>
           </div>
           <div className="global-search">
@@ -351,6 +406,27 @@ export default function ClinicApp() {
             )}
           </div>
           <div className="topbar-actions">
+            <button
+              className="logged-user"
+              onClick={() => navigate('configuracoes')}
+              aria-label={`Conta de ${session.user.name}`}
+            >
+              <Avatar
+                name={session.user.name}
+                color={session.user.color}
+                small
+              />
+              <span>
+                <strong>{session.user.name}</strong>
+                <small>
+                  {session.user.role === 'admin'
+                    ? 'Administrador'
+                    : session.user.role === 'dentist'
+                      ? 'Dentista'
+                      : 'Recepção'}
+                </small>
+              </span>
+            </button>
             <div className="notification-wrap">
               <button
                 className={`notification-button ${alerts.length ? 'has-notifications' : ''}`}
@@ -491,23 +567,15 @@ export default function ClinicApp() {
                     <span>Armazenamento</span>
                     <strong>{session.storage}</strong>
                   </div>
-                  {session.mode === 'production' && (
+                  {
                     <button
                       className="button button-secondary"
-                      onClick={async () => {
-                        await fetch('/api/auth', {
-                          method: 'POST',
-                          headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify({ action: 'logout' }),
-                        });
-                        setData(null);
-                        setStatus('auth');
-                      }}
+                      onClick={() => void logout()}
                     >
                       <LogOut size={15} />
                       Sair da conta
                     </button>
-                  )}
+                  }
                 </section>
                 <section className="card padded">
                   <div className="section-heading">
@@ -571,7 +639,7 @@ export default function ClinicApp() {
           )}
           <footer className="app-footer">
             <span>
-              LÚMINA <i /> CUIDADO CONECTADO
+              DENTIM <i /> CUIDADO CONECTADO
             </span>
             <span>Mais presença. Mais cuidado.</span>
             <button onClick={() => setModal('help')}>
@@ -584,7 +652,7 @@ export default function ClinicApp() {
         <button
           className="floating-assistant"
           onClick={() => setAssistant({ patientId: patientId || undefined })}
-          aria-label="Abrir assistente Lúmina"
+          aria-label="Abrir assistente Dentim"
         >
           <Sparkles size={21} />
           <span>Um segundo olhar</span>

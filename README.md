@@ -1,8 +1,8 @@
-# Lúmina · Gestão odontológica
+# Dentim · Gestão odontológica
 
 Primeira versão funcional de uma clínica odontológica com painel, pacientes, agenda diária, odontograma FDI, planejamento, evolução, financeiro, autorização de profissionais e Cérebro compatível com Obsidian. Interface em português, inspirada na referência visual fornecida.
 
-![Painel Lúmina com dados fictícios](docs/screenshots/dashboard.png)
+![Painel Dentim com dados fictícios](docs/screenshots/dashboard.png)
 
 ## Executar a demonstração
 
@@ -13,7 +13,26 @@ npm ci
 npm run dev
 ```
 
-Abra o endereço mostrado pelo Next.js. Sem configuração de Supabase, o desenvolvimento usa uma clínica fictícia e SQLite em `.data/clinic.sqlite`. A interface identifica a demonstração. Os registros persistem entre reinicializações locais. Não coloque dados reais nesse modo: ele não exige login e utiliza uma conta administrativa fictícia.
+Abra o endereço mostrado pelo Next.js. Sem configuração de Supabase, o desenvolvimento usa uma clínica fictícia e SQLite em `.data/clinic.sqlite`. A interface identifica a demonstração. Os registros persistem entre reinicializações locais. O acesso exige login individual, inclusive na demonstração; não use esse modo com dados reais.
+
+### Contas fictícias para demonstração
+
+![Login individual Dentim com perfis fictícios](docs/screenshots/login.png)
+
+| Perfil                             | E-mail                  | Senha de demonstração |
+| ---------------------------------- | ----------------------- | --------------------- |
+| Administradora — Dra. Helena Costa | `helena@dentim.exemplo` | `Dentim123!`          |
+| Dentista — Dr. Lucas Almeida       | `lucas@dentim.exemplo`  | `Dentim123!`          |
+
+Essas credenciais são públicas e servem apenas para dados fictícios. Cada conta possui sua própria sessão e permissões. O painel mostra o nome completo do profissional conectado; cada dentista consulta apenas os pacientes sob sua responsabilidade, enquanto o administrador gerencia a clínica e a **Equipe**.
+
+Para testar um novo profissional na demonstração:
+
+1. Use **Primeiro acesso? Solicitar cadastro**, informe nome, e-mail e senha. O cadastro fica **pendente**, sem acesso ao prontuário.
+2. Entre com a administradora, abra **Equipe** e autorize a conta.
+3. Clique em **Sair** e entre com a nova conta. A suspensão em **Equipe** bloqueia as próximas operações, mesmo que já exista uma sessão.
+
+A demonstração não envia e-mails de confirmação. Para testar duas contas ao mesmo tempo, use janelas de navegadores com sessões separadas. As senhas locais são armazenadas com derivação scrypt; os cookies de sessão são HttpOnly, expiram em oito horas e são revogados ao sair. Não existe mais entrada automática como administrador.
 
 Para verificar a compilação de produção com os mesmos dados fictícios:
 
@@ -32,7 +51,7 @@ DEMO_MODE=true npm start
 - Odontograma FDI com registro de condição, face, situação, autoria e histórico.
 - Planos de tratamento com prioridade, valores e estados; evoluções e retornos recomendados.
 - Cobranças, vencimentos, pagamentos parciais, formas de pagamento, despesas e saldo calculado em centavos. Reenvio do mesmo pagamento não duplica o recebimento.
-- Perfis de administrador, dentista e recepção; aprovação e suspensão pelo administrador. Permissões verificadas no servidor.
+- Login individual e perfis de administrador, dentista e recepção; aprovação e suspensão pelo administrador em **Equipe**. Permissões e vínculo dos pacientes verificados no servidor.
 - Notas clínicas, busca documental com fontes e exportação de vault ZIP para o Obsidian.
 - Integração de chat com Grok configurável, sem expor a chave ao navegador. Débitos e retornos atrasados são consultados de forma determinística.
 
@@ -65,7 +84,7 @@ Esta versão atende **uma clínica por projeto Supabase**. Use um projeto dedica
 
 6. Entre novamente na aplicação. Autorize os demais profissionais em **Equipe**. O banco de produção começa vazio, sem pacientes fictícios.
 
-O cookie de sessão é HttpOnly. Nesta versão, ao expirar a sessão, o usuário precisa entrar novamente; renovação automática e recuperação de senha pela interface ainda não foram implementadas. Suspensão e mudança de permissão são conferidas novamente no servidor a cada operação.
+Em produção, o cookie de sessão também é HttpOnly e a duração acompanha a sessão emitida pelo Supabase. Ao expirar a sessão, o usuário precisa entrar novamente; renovação automática e recuperação de senha pela interface ainda não foram implementadas. Suspensão e mudança de permissão são conferidas novamente no servidor a cada operação.
 
 ## Publicar no Render
 
@@ -103,7 +122,7 @@ npm test
 npm run build
 ```
 
-Os testes de domínio exercitam isolamento de pacientes, permissões, conflitos de agenda, histórico clínico, pagamentos parciais, idempotência e persistência. Os testes do Cérebro verificam busca, cálculos e exportação autorizada. Para executar os testes de navegador, inicie a demonstração em outro terminal, instale Chromium e execute `npm run test:e2e`. A configuração usa `/usr/bin/chromium`; defina `CHROMIUM_PATH` se o executável estiver em outro local. Os testes utilizam somente registros fictícios e adicionam dados à demonstração.
+Os testes de domínio exercitam isolamento de pacientes, permissões, conflitos de agenda, histórico clínico, pagamentos parciais, idempotência e persistência. O histórico de verificações está em [docs/validation.md](docs/validation.md); mudanças de autenticação precisam ser verificadas também na jornada de navegador. Os testes do Cérebro verificam busca, cálculos e exportação autorizada. Para executar os testes de navegador, inicie a demonstração em outro terminal, instale Chromium e execute `npm run test:e2e`. A configuração usa `/usr/bin/chromium`; defina `CHROMIUM_PATH` se o executável estiver em outro local. Os testes utilizam somente registros fictícios e adicionam dados à demonstração.
 
 ```text
 src/app/                  Rotas Next.js e APIs

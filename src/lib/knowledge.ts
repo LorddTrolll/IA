@@ -290,7 +290,7 @@ const yaml = (value: string) => JSON.stringify(value.replace(/\r/g, ''));
 const md = (value: string) => value.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const safeId = (value: string) => value.replace(/[^a-zA-Z0-9_-]/g, '_');
 const fileHeading = (title: string, patient: Patient, updatedAt: string) =>
-  `---\ntitle: ${yaml(title)}\npatient_id: ${yaml(patient.id)}\npatient_name: ${yaml(patient.name)}\nupdated_at: ${yaml(updatedAt)}\nsource: lumina\n---\n\n# ${md(title)}\n\n`;
+  `---\ntitle: ${yaml(title)}\npatient_id: ${yaml(patient.id)}\npatient_name: ${yaml(patient.name)}\nupdated_at: ${yaml(updatedAt)}\nsource: dentim\n---\n\n# ${md(title)}\n\n`;
 export type VaultFile = { path: string; content: string };
 
 export function buildVault(
@@ -309,7 +309,7 @@ export function buildVault(
   );
   const clinical = options.clinical !== false;
   const index = [
-    '# Lúmina · Cérebro da clínica',
+    '# Dentim · Cérebro da clínica',
     '',
     `Exportação: ${now}`,
     '',
@@ -410,7 +410,7 @@ export function buildVault(
     for (const note of state.notes.filter((n) => !n.patientId))
       files.push({
         path: `Clinica/Protocolos/nota-${safeId(note.id)}.md`,
-        content: `---\ntitle: ${yaml(note.title)}\nupdated_at: ${yaml(note.updatedAt)}\nsource: lumina\n---\n\n# ${md(note.title)}\n\n${md(note.content)}\n`,
+        content: `---\ntitle: ${yaml(note.title)}\nupdated_at: ${yaml(note.updatedAt)}\nsource: dentim\n---\n\n# ${md(note.title)}\n\n${md(note.content)}\n`,
       });
   files.unshift({ path: 'Indice.md', content: index.join('\n') + '\n' });
   files.push({

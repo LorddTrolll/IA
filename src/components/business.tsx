@@ -217,7 +217,7 @@ export function FinancePage({
   };
   const download = () => {
     if (tab === 'invoices')
-      saveCSV(`lumina-recebimentos-${today}.csv`, [
+      saveCSV(`dentim-recebimentos-${today}.csv`, [
         [
           'Paciente',
           'Descrição',
@@ -238,7 +238,7 @@ export function FinancePage({
         ]),
       ]);
     else
-      saveCSV(`lumina-despesas-${today}.csv`, [
+      saveCSV(`dentim-despesas-${today}.csv`, [
         ['Descrição', 'Categoria', 'Data', 'Valor (BRL)', 'Status'],
         ...filteredExpenses.map((e) => [
           e.description,

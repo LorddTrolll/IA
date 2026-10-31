@@ -1,4 +1,9 @@
 import { expect, test, type Response } from '@playwright/test';
+import { loginDemoAdmin } from './demo-login';
+
+test.beforeEach(async ({ request, context }) => {
+  await loginDemoAdmin(request, context);
+});
 
 async function successful(response: Response) {
   const body = await response.text();
@@ -98,7 +103,7 @@ test('clinical journey persists anamnese, FDI history, planning and evolutions',
   await page
     .getByRole('combobox', { name: 'Tipo de dentição', exact: true })
     .selectOption('permanent');
-  await page.screenshot({ path: '/tmp/lumina-clinical.png', fullPage: true });
+  await page.screenshot({ path: '/tmp/dentim-clinical.png', fullPage: true });
 
   await page.getByRole('tab', { name: 'Planejamento', exact: true }).click();
   await page

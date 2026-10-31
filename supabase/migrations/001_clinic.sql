@@ -1,4 +1,4 @@
--- Lúmina MVP: uma clínica por projeto Supabase.
+-- Dentim MVP: uma clínica por projeto Supabase.
 -- Execute no SQL Editor do seu projeto. Sem dados de demonstração em produção.
 begin;
 create table if not exists public.profiles (

@@ -67,7 +67,7 @@ export function Modal({
       >
         <header className="modal-header">
           <div>
-            <span className="eyebrow">LÚMINA · CLÍNICA CONECTADA</span>
+            <span className="eyebrow">DENTIM · CLÍNICA CONECTADA</span>
             <h2>{title}</h2>
           </div>
           <button className="icon-button" onClick={onClose} aria-label="Fechar">

@@ -27,7 +27,7 @@ export async function GET(request: Request) {
     return new Response(new Uint8Array(zip), {
       headers: {
         'Content-Type': 'application/zip',
-        'Content-Disposition': `attachment; filename="lumina-obsidian${patientId ? '-paciente' : ''}.zip"`,
+        'Content-Disposition': `attachment; filename="dentim-obsidian${patientId ? '-paciente' : ''}.zip"`,
         'Cache-Control': 'no-store',
         'X-Content-Type-Options': 'nosniff',
       },

@@ -3227,3 +3227,118 @@ small {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Individual workspace and sign-in */
+.logged-user {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: transparent;
+  padding: 4px 12px 4px 0;
+  border-right: 1px solid var(--line);
+  margin-right: 1px;
+  text-align: left;
+  flex-shrink: 0;
+}
+.logged-user > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.logged-user strong {
+  font-size: 10px;
+  font-weight: 500;
+  max-width: 145px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.logged-user small {
+  font-size: 8px;
+  color: var(--muted);
+}
+.auth-demo {
+  margin-top: 24px;
+  padding: 17px;
+  background: #e9f0df;
+  border: 1px solid #d5e0c6;
+  border-radius: 3px;
+}
+.auth-demo > .eyebrow {
+  font-size: 7px;
+  letter-spacing: 1px;
+  color: #758e61;
+}
+.auth-demo > p {
+  font-size: 10px;
+  line-height: 1.7;
+  color: #7d916e;
+  margin: 8px 0 12px;
+}
+.auth-demo > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+.auth-demo button {
+  padding: 10px 11px;
+  text-align: left;
+  background: #f5f8ef;
+  border: 1px solid #ccdaba;
+  font-size: 11px;
+  color: #405d2e;
+  border-radius: 2px;
+}
+.auth-demo button:hover {
+  background: #dff0c5;
+  border-color: #adbf94;
+}
+.auth-demo button > span {
+  display: block;
+  font-size: 8px;
+  margin-top: 3px;
+  color: #8a9e77;
+}
+.auth-demo > small {
+  display: block;
+  font-size: 8px;
+  line-height: 1.7;
+  color: #91a17f;
+  margin-top: 11px;
+}
+.auth-demo code {
+  color: #617d46;
+  font-family: var(--font-mono);
+}
+.sidebar {
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+@media (max-width: 1200px) {
+  .logged-user > span:last-child {
+    display: none;
+  }
+  .logged-user {
+    padding-right: 11px;
+  }
+  .global-search {
+    flex-shrink: 1;
+  }
+}
+@media (max-width: 720px) {
+  .logged-user {
+    display: none;
+  }
+  .auth-demo {
+    padding: 15px;
+  }
+  .auth-demo > p {
+    font-size: 11px;
+  }
+  .auth-demo > small {
+    font-size: 9px;
+  }
+  .page-title-row h1 {
+    overflow-wrap: anywhere;
+  }
+}
