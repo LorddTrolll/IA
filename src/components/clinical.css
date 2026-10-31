@@ -1,0 +1,1385 @@
+.clinical-page {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+.clinical-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: #738076;
+  font-size: 12px;
+  cursor: pointer;
+  margin-bottom: 25px;
+}
+.clinical-back:hover {
+  color: #17271f;
+}
+.clinical-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 28px;
+}
+.clinical-identity {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
+}
+.clinical-identity > .avatar {
+  width: 68px;
+  height: 68px;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.clinical-identity h1 {
+  font-size: 34px;
+  line-height: 1.2;
+  letter-spacing: -1.3px;
+  margin: 7px 0 9px;
+  overflow-wrap: anywhere;
+}
+.clinical-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 11px;
+  color: #7c887e;
+}
+.clinical-contact > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.clinical-dot {
+  width: 5px;
+  height: 5px;
+  background: #639b78;
+  border-radius: 50%;
+}
+.clinical-header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+.clinical-tabs {
+  display: flex;
+  gap: 22px;
+  border-bottom: 1px solid #d9e0d7;
+  margin: 0 0 26px;
+  overflow-x: auto;
+}
+.clinical-tabs > button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: #7e897f;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 14px 1px 15px;
+}
+.clinical-tabs > button.active {
+  color: #17271f;
+  border-color: #17271f;
+}
+.clinical-notice {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #385941;
+  background: #e8efdf;
+  border: 1px solid #d7e4cb;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-size: 12px;
+}
+.clinical-notice button {
+  margin-left: auto;
+  background: none;
+  border: 0;
+  font-size: 20px;
+  color: inherit;
+  cursor: pointer;
+}
+.clinical-error {
+  font-size: 13px;
+  background: #fff0e9;
+  color: #983f30;
+  padding: 12px 15px;
+  margin-bottom: 18px;
+  border: 1px solid #f0cfbf;
+}
+.clinical-summary-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2.1fr) minmax(260px, 1fr);
+  gap: 22px;
+}
+.clinical-main-column,
+.clinical-side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.clinical-health-alert {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  background: #e1e9d9;
+  padding: 21px 23px;
+  border: 1px solid #d4dfca;
+  color: #556a49;
+}
+.clinical-health-alert > svg {
+  flex-shrink: 0;
+}
+.clinical-health-alert > div {
+  flex: 1;
+}
+.clinical-health-alert .eyebrow {
+  font-size: 8px;
+  margin-bottom: 7px;
+  display: block;
+}
+.clinical-health-alert strong {
+  display: block;
+  font-size: 14px;
+  color: #263d2c;
+  font-weight: 500;
+}
+.clinical-health-alert p {
+  font-size: 11px;
+  margin: 6px 0 0;
+  line-height: 1.6;
+}
+.clinical-health-warning {
+  background: #f7ece0;
+  color: #a16f46;
+  border-color: #ead8c4;
+}
+.clinical-health-warning strong {
+  color: #7f4c2a;
+}
+.clinical-arrow {
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.clinical-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid #dce2d8;
+  background: #f8f9f4;
+}
+.clinical-metrics > div {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 22px;
+  gap: 10px;
+  min-width: 0;
+}
+.clinical-metrics > div + div {
+  border-left: 1px solid #dce2d8;
+}
+.clinical-metrics .eyebrow {
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+.clinical-metrics strong {
+  font-weight: 500;
+  font-size: 34px;
+  letter-spacing: -1.5px;
+  color: #17271f;
+}
+.clinical-metrics strong.clinical-money {
+  font-size: 25px;
+  letter-spacing: -1px;
+}
+.clinical-metrics small {
+  font-size: 10px;
+  color: #89928a;
+}
+.clinical-section {
+  padding: 25px !important;
+  min-width: 0;
+}
+.clinical-section-heading {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.clinical-section-heading h3 {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  margin: 7px 0 0;
+}
+.clinical-section-heading > .button {
+  white-space: nowrap;
+}
+.clinical-section-heading > svg {
+  color: #889789;
+}
+.clinical-section-heading > select {
+  width: auto;
+  min-width: 120px;
+  font-size: 11px;
+}
+.clinical-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #617760;
+  text-decoration: none;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.clinical-link:hover {
+  color: #1a3222;
+}
+.clinical-treatment-row {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 16px 0;
+  border-top: 1px solid #e5e9df;
+}
+.clinical-tooth-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 44px;
+  background: #edf0e7;
+  color: #66785d;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 3px;
+}
+.clinical-treatment-row > div {
+  flex: 1;
+  min-width: 0;
+}
+.clinical-treatment-row strong {
+  font-size: 12px;
+  display: block;
+  font-weight: 500;
+}
+.clinical-treatment-row small {
+  font-size: 10px;
+  color: #879283;
+  display: block;
+  margin-top: 6px;
+  line-height: 1.6;
+}
+.clinical-treatment-row .badge {
+  font-size: 9px;
+  white-space: nowrap;
+}
+.clinical-meta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+}
+.clinical-meta span > small {
+  display: block;
+  font-size: 9px;
+  color: #8a958a;
+  margin-top: 4px;
+}
+.clinical-latest > p {
+  font-size: 13px;
+  color: #667366;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  margin: 22px 0;
+}
+.clinical-next-visit {
+  background: #17271f;
+  color: #f1f6ec;
+  padding: 29px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.clinical-next-visit > .eyebrow {
+  color: #a2b29f;
+  font-size: 9px;
+}
+.clinical-next-visit > svg {
+  color: #c9f565;
+  margin-top: 10px;
+}
+.clinical-next-day {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: -3px;
+  margin: 10px 0 3px;
+}
+.clinical-next-day > span {
+  font-size: 16px;
+  letter-spacing: -0.3px;
+  color: #bac7b5;
+}
+.clinical-next-day > span.clinical-next-time {
+  margin-left: auto;
+  font-size: 25px;
+  color: #c9f565;
+  letter-spacing: -1px;
+}
+.clinical-next-visit h3 {
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+.clinical-next-visit p {
+  color: #9cac99;
+  font-size: 11px;
+  line-height: 1.7;
+  margin: 0;
+}
+.clinical-next-visit > .badge {
+  align-self: flex-start;
+}
+.clinical-next-visit > .clinical-link {
+  color: #bdcdb5;
+  border-top: 1px solid #354333;
+  padding-top: 18px;
+  margin-top: 9px;
+  display: flex;
+  justify-content: space-between;
+}
+.clinical-appointment-history {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.clinical-appointment-history div {
+  font-size: 11px;
+}
+.clinical-appointment-history small {
+  display: block;
+  color: #a2b29f;
+  margin-top: 5px;
+  line-height: 1.5;
+}
+.clinical-facts dl {
+  margin: 24px 0 0;
+}
+.clinical-facts dt {
+  font-size: 10px;
+  color: #9aa294;
+  margin: 17px 0 6px;
+}
+.clinical-facts dd {
+  font-size: 12px;
+  color: #53624e;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.clinical-brain-card {
+  background: #e3ead9;
+  padding: 26px;
+  color: #46603c;
+}
+.clinical-brain-card > svg {
+  color: #6d8661;
+}
+.clinical-brain-card h3 {
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.6px;
+  margin: 18px 0 10px;
+}
+.clinical-brain-card p {
+  font-size: 12px;
+  color: #7a8b70;
+  line-height: 1.8;
+  margin-bottom: 23px;
+}
+.clinical-muted {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #879180;
+}
+.clinical-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 21px;
+}
+.clinical-form-grid .field-full {
+  grid-column: 1/-1;
+}
+.clinical-form-grid textarea,
+.clinical-form-grid input,
+.clinical-form-grid select {
+  width: 100%;
+  box-sizing: border-box;
+}
+.clinical-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 25px;
+  margin-top: 28px;
+  border-top: 1px solid #e3e8df;
+}
+.clinical-form-footer > .clinical-muted {
+  font-size: 10px;
+}
+.clinical-odontogram-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 22px;
+}
+.clinical-dental-scroll {
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.clinical-arches {
+  min-width: 640px;
+  margin: 32px 0 10px;
+}
+.clinical-arch-guide {
+  display: flex;
+  justify-content: space-between;
+  font-family: monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #9ca792;
+  margin-bottom: 18px;
+}
+.clinical-arch-row {
+  display: flex;
+  justify-content: center;
+  gap: 1px;
+  padding: 14px 0;
+}
+.clinical-bottom-arch {
+  border-top: 1px dashed #dce2d4;
+}
+.clinical-tooth {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 2px 10px;
+  flex: 1;
+  max-width: 49px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+  min-width: 36px;
+}
+.clinical-tooth:hover {
+  background: #eaf0e1;
+}
+.clinical-tooth.selected {
+  background: #e7efd9;
+  border-color: #bace9a;
+}
+.clinical-tooth > span {
+  font-family: monospace;
+  font-size: 9px;
+  color: #7a8b6c;
+}
+.clinical-tooth-svg {
+  width: 35px;
+  height: 52px;
+  overflow: visible;
+}
+.clinical-tooth-root {
+  fill: #f6f8ef;
+  stroke: #becab4;
+  stroke-width: 1.3;
+}
+.clinical-tooth-crown {
+  fill: #f6f8ef;
+  stroke: #b5c2aa;
+  stroke-width: 1.3;
+}
+.clinical-tooth-groove {
+  fill: none;
+  stroke: #c4d0ba;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+.clinical-tooth-lower {
+  transform: rotate(180deg);
+}
+.clinical-tooth-attention .clinical-tooth-crown {
+  fill: #f7d8c4;
+  stroke: #d79470;
+}
+.clinical-tooth-attention .clinical-tooth-groove {
+  stroke: #c18c6c;
+}
+.clinical-tooth-planned .clinical-tooth-crown {
+  fill: #d9ecb5;
+  stroke: #8fa763;
+}
+.clinical-tooth-completed .clinical-tooth-crown {
+  fill: #cfe3d8;
+  stroke: #80aa92;
+}
+.clinical-tooth-treated .clinical-tooth-crown {
+  fill: #d5e0e9;
+  stroke: #8ca6b7;
+}
+.clinical-tooth-missing .clinical-tooth-root,
+.clinical-tooth-missing .clinical-tooth-crown {
+  opacity: 0.45;
+}
+.clinical-tooth-x {
+  stroke: #a1a99c;
+  stroke-width: 1;
+  fill: none;
+}
+.clinical-tooth-status {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  display: block;
+}
+.clinical-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  border-top: 1px solid #e3e8da;
+  padding-top: 23px;
+  margin-top: 20px;
+}
+.clinical-legend > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  color: #8b9684;
+}
+.clinical-legend i {
+  width: 7px;
+  height: 7px;
+  display: block;
+  border-radius: 2px;
+}
+.clinical-status-healthy {
+  background: #dce4d4;
+}
+.clinical-status-attention {
+  background: #d69a78;
+}
+.clinical-status-treated {
+  background: #8faaba;
+}
+.clinical-status-planned {
+  background: #b1cf78;
+}
+.clinical-status-completed {
+  background: #7eaa90;
+}
+.clinical-status-missing {
+  background: #a4ada0;
+}
+.clinical-footnote {
+  font-size: 10px;
+  line-height: 1.8;
+  color: #8f9a86;
+  margin: 20px 0 0;
+}
+.clinical-selected-number {
+  font-size: 67px;
+  font-weight: 500;
+  letter-spacing: -3px;
+  line-height: 1.2;
+  color: #233d29;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 19px 0 22px;
+}
+.clinical-selected-number > svg {
+  color: #b0c49e;
+}
+.clinical-selected-tooth > .button {
+  width: 100%;
+  justify-content: center;
+}
+.clinical-selected-tooth h4 {
+  font-size: 12px;
+  font-weight: 500;
+  border-top: 1px solid #e3e9dc;
+  padding-top: 26px;
+  margin: 28px 0 10px;
+}
+.clinical-tooth-history {
+  border-bottom: 1px solid #e5ebde;
+  padding: 16px 0;
+}
+.clinical-tooth-history > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+.clinical-tooth-history strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+.clinical-tooth-history small {
+  font-size: 9px;
+  color: #8a9980;
+  display: block;
+  margin: 8px 0;
+  line-height: 1.6;
+}
+.clinical-tooth-history p {
+  font-size: 11px;
+  color: #607354;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+.clinical-plan-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding-bottom: 24px;
+}
+.clinical-pill-switch {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.clinical-pill-switch button {
+  border: 0;
+  background: none;
+  color: #8c9881;
+  font-size: 10px;
+  padding: 9px 13px;
+  cursor: pointer;
+}
+.clinical-pill-switch button.active {
+  background: #e6eedb;
+  color: #4b633b;
+}
+.clinical-plan-value {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+  color: #8b977f;
+}
+.clinical-plan-value strong {
+  font-size: 16px;
+  color: #354f27;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+}
+.clinical-plan-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-top: 1px solid #e3e8dc;
+  padding: 23px 0;
+}
+.clinical-plan-info {
+  min-width: 0;
+  flex: 1;
+}
+.clinical-plan-info > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+.clinical-plan-info h4 {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+.clinical-plan-info p {
+  font-size: 11px;
+  color: #8a977e;
+  margin: 10px 0;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+.clinical-plan-info small {
+  font-size: 9px;
+  color: #96a18b;
+}
+.clinical-plan-end {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 140px;
+}
+.clinical-plan-end > strong {
+  font-size: 15px;
+  letter-spacing: -0.4px;
+  font-weight: 500;
+  color: #415933;
+}
+.clinical-plan-end select {
+  font-size: 10px;
+  max-width: 145px;
+}
+.clinical-timeline {
+  margin: 30px 0;
+}
+.clinical-timeline-item {
+  display: flex;
+  position: relative;
+  gap: 25px;
+  padding-bottom: 35px;
+}
+.clinical-timeline-item > i {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #96b26f;
+  box-shadow: 0 0 0 4px #edf2e7;
+  z-index: 1;
+}
+.clinical-timeline-item:before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  bottom: 0;
+  left: 3px;
+  width: 1px;
+  background: #e3eadd;
+}
+.clinical-timeline-item:last-child:before {
+  display: none;
+}
+.clinical-timeline-date {
+  padding-left: 23px;
+  width: 140px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 11px;
+  color: #5f7551;
+}
+.clinical-timeline-date small {
+  font-size: 9px;
+  color: #a1ad95;
+}
+.clinical-timeline-body {
+  flex: 1;
+  border: 1px solid #e3e8dc;
+  padding: 20px;
+  min-width: 0;
+}
+.clinical-timeline-body p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: #697b5b;
+  white-space: pre-wrap;
+  margin: 20px 0;
+}
+.clinical-timeline-body > .clinical-meta > .badge {
+  margin-left: auto;
+}
+.clinical-timeline-body .badge {
+  font-size: 9px;
+}
+.clinical-financial {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.clinical-invoice {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  border-top: 1px solid #e2e8dc;
+  padding: 23px 0;
+}
+.clinical-invoice-icon {
+  background: #edf1e5;
+  display: flex;
+  width: 43px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  color: #8da071;
+  flex-shrink: 0;
+}
+.clinical-invoice-info {
+  flex: 1;
+  min-width: 0;
+}
+.clinical-invoice-info > strong {
+  font-size: 13px;
+  font-weight: 500;
+}
+.clinical-invoice-info > small {
+  font-size: 9px;
+  display: block;
+  color: #8e9d81;
+  margin-top: 8px;
+}
+.clinical-payment-track {
+  height: 3px;
+  max-width: 230px;
+  background: #e4ebdc;
+  margin-top: 13px;
+}
+.clinical-payment-track > i {
+  height: 100%;
+  display: block;
+  background: #a5c974;
+}
+.clinical-invoice-end {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  min-width: 90px;
+}
+.clinical-invoice-end > strong {
+  font-size: 18px;
+  letter-spacing: -0.5px;
+  font-weight: 500;
+}
+.clinical-invoice-end > .badge {
+  font-size: 9px;
+}
+.clinical-payments-table > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  border-top: 1px solid #e5ebde;
+  gap: 15px;
+}
+.clinical-payments-table strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+.clinical-payments-table small {
+  display: block;
+  font-size: 10px;
+  color: #8f9c82;
+  margin-top: 7px;
+}
+.clinical-knowledge {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.clinical-knowledge-banner {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 35px;
+  background: #e0e9d4;
+  color: #345127;
+}
+.clinical-knowledge-banner > div {
+  max-width: 620px;
+}
+.clinical-knowledge-banner h2 {
+  font-size: 29px;
+  letter-spacing: -1px;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 17px 0;
+}
+.clinical-knowledge-banner p {
+  font-size: 12px;
+  color: #7d906b;
+  line-height: 1.9;
+  margin: 0 0 25px;
+}
+.clinical-knowledge-banner > div > div {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+.clinical-knowledge-banner > svg {
+  flex-shrink: 0;
+  color: #a7bd8c;
+  stroke-width: 0.8;
+}
+.clinical-notes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+.clinical-note-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 24px 20px;
+  background: #f2f5ea;
+  border: 1px solid #e1e8d7;
+  cursor: pointer;
+  min-height: 210px;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+  color: #789362;
+}
+.clinical-note-card:hover {
+  background: #e9f0df;
+  border-color: #b9cda5;
+}
+.clinical-note-card h4 {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  color: #3c552e;
+  margin: 18px 0 10px;
+  overflow-wrap: anywhere;
+}
+.clinical-note-card p {
+  font-size: 11px;
+  line-height: 1.8;
+  color: #8b9a7e;
+  margin: 0 0 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+.clinical-note-card > span {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: auto;
+  align-items: center;
+  font-size: 9px;
+  color: #93a184;
+}
+.clinical-modal-body {
+  padding: 25px 30px 30px;
+}
+.clinical-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 19px 30px;
+  border-top: 1px solid #e2e8da;
+  background: #f6f8f1;
+}
+.clinical-record-attribution {
+  grid-column: 1/-1;
+  display: flex;
+  gap: 10px;
+  padding: 14px;
+  background: #f0f4e8;
+  color: #849875;
+  font-size: 10px;
+  line-height: 1.8;
+}
+.clinical-record-attribution > svg {
+  flex-shrink: 0;
+}
+.clinical-payment-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 16px;
+  background: #edf3e4;
+  margin-bottom: 25px;
+  font-size: 12px;
+  color: #6a8056;
+}
+.clinical-payment-summary > strong {
+  color: #3f5a2c;
+  font-size: 18px;
+  letter-spacing: -0.5px;
+  font-weight: 500;
+}
+.clinical-markdown-editor {
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 1.8;
+  tab-size: 2;
+}
+@media (min-width: 1500px) {
+  .clinical-tooth {
+    min-width: 38px;
+  }
+}
+@media (max-width: 1200px) {
+  .clinical-heading {
+    align-items: flex-start;
+  }
+  .clinical-header-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .clinical-identity h1 {
+    font-size: 29px;
+  }
+  .clinical-odontogram-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .clinical-selected-tooth {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 15px;
+    align-items: center;
+  }
+  .clinical-selected-tooth > .eyebrow,
+  .clinical-selected-tooth > h4,
+  .clinical-selected-tooth > .clinical-tooth-history,
+  .clinical-selected-tooth > .clinical-muted {
+    grid-column: 1/-1;
+  }
+  .clinical-selected-number {
+    margin: 0;
+  }
+  .clinical-selected-tooth h4 {
+    margin: 5px 0 0;
+  }
+  .clinical-metrics strong.clinical-money {
+    font-size: 21px;
+  }
+  .clinical-plan-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .clinical-notes-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 950px) {
+  .clinical-summary-grid {
+    grid-template-columns: 1fr;
+  }
+  .clinical-side-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+  .clinical-brain-card {
+    grid-column: 1/-1;
+  }
+  .clinical-contact {
+    gap: 10px;
+  }
+  .clinical-identity > .avatar {
+    width: 55px;
+    height: 55px;
+    font-size: 18px;
+  }
+  .clinical-section {
+    padding: 21px !important;
+  }
+  .clinical-header-actions .button {
+    font-size: 10px;
+    padding: 10px;
+  }
+  .clinical-timeline-date {
+    width: 112px;
+  }
+  .clinical-timeline-item {
+    gap: 15px;
+  }
+  .clinical-invoice {
+    gap: 12px;
+  }
+  .clinical-invoice > .button {
+    font-size: 10px;
+    padding: 9px;
+  }
+  .clinical-invoice-info > strong {
+    font-size: 12px;
+  }
+}
+@media (max-width: 650px) {
+  .clinical-back {
+    margin-bottom: 20px;
+  }
+  .clinical-heading {
+    flex-direction: column;
+    gap: 22px;
+    margin-bottom: 20px;
+  }
+  .clinical-header-actions {
+    flex-direction: row;
+    width: 100%;
+  }
+  .clinical-header-actions .button {
+    flex: 1;
+    justify-content: center;
+  }
+  .clinical-identity h1 {
+    font-size: 27px;
+    letter-spacing: -0.8px;
+  }
+  .clinical-contact {
+    font-size: 10px;
+  }
+  .clinical-contact > span:last-child {
+    flex-basis: 100%;
+  }
+  .clinical-tabs {
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  .clinical-tabs > button {
+    font-size: 11px;
+  }
+  .clinical-summary-grid {
+    gap: 18px;
+  }
+  .clinical-side-column {
+    display: flex;
+  }
+  .clinical-health-alert {
+    padding: 18px 16px;
+    gap: 12px;
+  }
+  .clinical-health-alert strong {
+    font-size: 12px;
+  }
+  .clinical-health-alert p {
+    font-size: 10px;
+  }
+  .clinical-metrics > div {
+    padding: 18px 12px;
+    gap: 8px;
+  }
+  .clinical-metrics .eyebrow {
+    font-size: 6px;
+    letter-spacing: 0.7px;
+  }
+  .clinical-metrics strong {
+    font-size: 27px;
+  }
+  .clinical-metrics strong.clinical-money {
+    font-size: 17px;
+    letter-spacing: -0.7px;
+  }
+  .clinical-metrics small {
+    font-size: 8px;
+    line-height: 1.5;
+  }
+  .clinical-section {
+    padding: 20px 17px !important;
+  }
+  .clinical-section-heading {
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+  .clinical-section-heading h3 {
+    font-size: 16px;
+  }
+  .clinical-section-heading .button {
+    font-size: 9px;
+    gap: 5px;
+    padding: 9px 10px;
+  }
+  .clinical-section-heading .eyebrow {
+    font-size: 7px;
+  }
+  .clinical-link {
+    font-size: 9px;
+    gap: 5px;
+  }
+  .clinical-form-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .clinical-form-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 17px;
+  }
+  .clinical-form-footer > .button {
+    align-self: flex-end;
+  }
+  .clinical-treatment-row {
+    gap: 10px;
+  }
+  .clinical-treatment-row strong {
+    font-size: 11px;
+  }
+  .clinical-treatment-row .badge {
+    max-width: 80px;
+    font-size: 8px;
+    text-align: center;
+    white-space: normal;
+  }
+  .clinical-tooth-number {
+    width: 34px;
+    height: 39px;
+    font-size: 14px;
+  }
+  .clinical-treatment-row small {
+    font-size: 9px;
+  }
+  .clinical-plan-item {
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .clinical-plan-info {
+    width: calc(100% - 50px);
+    flex: auto;
+  }
+  .clinical-plan-info h4 {
+    font-size: 12px;
+  }
+  .clinical-plan-end {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 46px;
+    min-width: 0;
+  }
+  .clinical-pill-switch button {
+    padding: 8px 9px;
+    font-size: 9px;
+  }
+  .clinical-timeline-item {
+    flex-direction: column;
+    gap: 12px;
+    padding-left: 22px;
+  }
+  .clinical-timeline-date {
+    padding-left: 0;
+    width: auto;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 10px;
+  }
+  .clinical-timeline-body {
+    padding: 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .clinical-timeline-body p {
+    font-size: 11px;
+  }
+  .clinical-timeline-body .clinical-meta {
+    font-size: 10px;
+    flex-wrap: wrap;
+  }
+  .clinical-timeline-body > .clinical-meta > .badge {
+    display: none;
+  }
+  .clinical-invoice {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 20px 0;
+  }
+  .clinical-invoice-icon {
+    width: 33px;
+    height: 40px;
+  }
+  .clinical-invoice-info {
+    flex-basis: calc(100% - 50px);
+  }
+  .clinical-invoice-end {
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    margin-left: 45px;
+    min-width: 0;
+    flex: 1;
+  }
+  .clinical-invoice-end > strong {
+    font-size: 16px;
+  }
+  .clinical-invoice > .button {
+    margin-left: auto;
+    font-size: 9px;
+  }
+  .clinical-knowledge-banner {
+    padding: 26px 22px;
+  }
+  .clinical-knowledge-banner h2 {
+    font-size: 24px;
+  }
+  .clinical-knowledge-banner > svg {
+    display: none;
+  }
+  .clinical-knowledge-banner p {
+    font-size: 11px;
+  }
+  .clinical-knowledge-banner .button {
+    font-size: 10px;
+  }
+  .clinical-notes-grid {
+    grid-template-columns: 1fr;
+  }
+  .clinical-note-card {
+    min-height: 180px;
+  }
+  .clinical-modal-body {
+    padding: 22px 20px;
+  }
+  .clinical-modal-footer {
+    padding: 18px 20px;
+  }
+  .clinical-selected-tooth {
+    grid-template-columns: 80px 1fr;
+  }
+  .clinical-selected-number {
+    font-size: 55px;
+  }
+  .clinical-selected-number > svg {
+    display: none;
+  }
+  .clinical-legend {
+    gap: 12px;
+  }
+  .clinical-legend > span {
+    font-size: 8px;
+  }
+  .clinical-odontogram > .clinical-section-heading > select {
+    min-width: 100px;
+    font-size: 10px;
+    width: 105px;
+  }
+  .clinical-invoice-info > strong {
+    overflow-wrap: anywhere;
+  }
+}
